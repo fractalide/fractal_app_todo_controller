@@ -4,27 +4,27 @@ let
   cfg = config.services.app_todo_controller;
   fractalide = import <fractalide> {};
   support = fractalide.support;
-  contracts = fractalide.contracts;
-  components = fractalide.components;
-  fractal = import ./default.nix { inherit pkgs support contracts components;
+  edges = fractalide.edges;
+  nodes = fractalide.nodes;
+  fractal = import ./default.nix { inherit pkgs support edges nodes;
     fractalide = null;
   };
-  serviceSubnet = support.buildFractalideSubnet rec {
+  serviceSubgraph = support.subgraph rec {
     src = ./.;
     name = "app_todo_controller_service";
     subnet = ''
-    '${contracts.net_http_contracts.address}:(address="${cfg.bindAddress}:${toString cfg.port}")' -> listen controller(${fractal.components.controller})
-    '${contracts.generic_text}:(text="${cfg.request_get}:${toString cfg.request_get_port}")' -> request_get controller()
-    '${contracts.generic_text}:(text="${cfg.request_post}:${toString cfg.request_post_port}")' -> request_post controller()
-    '${contracts.generic_text}:(text="${cfg.request_delete}:${toString cfg.request_delete_port}")' -> request_delete controller()
-    '${contracts.generic_text}:(text="${cfg.request_patch}:${toString cfg.request_patch_port}")' -> request_patch controller()
-    '${contracts.generic_text}:(text="${cfg.response_get}:${toString cfg.response_get_port}")' -> response_get controller()
-    '${contracts.generic_text}:(text="${cfg.response_post}:${toString cfg.response_post_port}")' -> response_post controller()
-    '${contracts.generic_text}:(text="${cfg.response_delete}:${toString cfg.response_delete_port}")' -> response_delete controller()
-    '${contracts.generic_text}:(text="${cfg.response_patch}:${toString cfg.response_patch_port}")' -> response_patch controller()
+    '${edges.net_http_edges.address}:(address="${cfg.bindAddress}:${toString cfg.port}")' -> listen controller(${fractal.nodes.controller})
+    '${edges.generic_text}:(text="${cfg.request_get}:${toString cfg.request_get_port}")' -> request_get controller()
+    '${edges.generic_text}:(text="${cfg.request_post}:${toString cfg.request_post_port}")' -> request_post controller()
+    '${edges.generic_text}:(text="${cfg.request_delete}:${toString cfg.request_delete_port}")' -> request_delete controller()
+    '${edges.generic_text}:(text="${cfg.request_patch}:${toString cfg.request_patch_port}")' -> request_patch controller()
+    '${edges.generic_text}:(text="${cfg.response_get}:${toString cfg.response_get_port}")' -> response_get controller()
+    '${edges.generic_text}:(text="${cfg.response_post}:${toString cfg.response_post_port}")' -> response_post controller()
+    '${edges.generic_text}:(text="${cfg.response_delete}:${toString cfg.response_delete_port}")' -> response_delete controller()
+    '${edges.generic_text}:(text="${cfg.response_patch}:${toString cfg.response_patch_port}")' -> response_patch controller()
     '';
   };
-  fvm = import (<fractalide> + "/support/fvm/") {inherit pkgs support contracts components;};
+  fvm = import (<fractalide> + "/support/fvm/") {inherit pkgs support edges nodes;};
 in
 {
   options.services.app_todo_controller = {
