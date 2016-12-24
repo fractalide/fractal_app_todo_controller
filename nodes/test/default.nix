@@ -2,6 +2,7 @@
 
 subgraph {
   src = ./.;
+  edges = with edges; [ net_http_edges.address generic_text ];
   flowscript = with nodes; with edges; ''
   '${net_http_edges.address}:(address="127.0.0.1:8001")' -> listen controller(${controller})
   '${generic_text}:(text="tcp://127.0.0.1:5551")' -> request_get controller()
