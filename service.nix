@@ -13,15 +13,15 @@ let
     src = ./.;
     name = "app_todo_controller_service";
     subnet = ''
-    '${edges.net_http_edges.address}:(address="${cfg.bindAddress}:${toString cfg.port}")' -> listen controller(${fractal.nodes.controller})
-    '${edges.generic_text}:(text="${cfg.request_get}:${toString cfg.request_get_port}")' -> request_get controller()
-    '${edges.generic_text}:(text="${cfg.request_post}:${toString cfg.request_post_port}")' -> request_post controller()
-    '${edges.generic_text}:(text="${cfg.request_delete}:${toString cfg.request_delete_port}")' -> request_delete controller()
-    '${edges.generic_text}:(text="${cfg.request_patch}:${toString cfg.request_patch_port}")' -> request_patch controller()
-    '${edges.generic_text}:(text="${cfg.response_get}:${toString cfg.response_get_port}")' -> response_get controller()
-    '${edges.generic_text}:(text="${cfg.response_post}:${toString cfg.response_post_port}")' -> response_post controller()
-    '${edges.generic_text}:(text="${cfg.response_delete}:${toString cfg.response_delete_port}")' -> response_delete controller()
-    '${edges.generic_text}:(text="${cfg.response_patch}:${toString cfg.response_patch_port}")' -> response_patch controller()
+    '${edges.net_http_edges.net_http_address}:(address="${cfg.bindAddress}:${toString cfg.port}")' -> listen controller(${fractal.nodes.controller})
+    '${edges.prim_text}:(text="${cfg.request_get}:${toString cfg.request_get_port}")' -> request_get controller()
+    '${edges.prim_text}:(text="${cfg.request_post}:${toString cfg.request_post_port}")' -> request_post controller()
+    '${edges.prim_text}:(text="${cfg.request_delete}:${toString cfg.request_delete_port}")' -> request_delete controller()
+    '${edges.prim_text}:(text="${cfg.request_patch}:${toString cfg.request_patch_port}")' -> request_patch controller()
+    '${edges.prim_text}:(text="${cfg.response_get}:${toString cfg.response_get_port}")' -> response_get controller()
+    '${edges.prim_text}:(text="${cfg.response_post}:${toString cfg.response_post_port}")' -> response_post controller()
+    '${edges.prim_text}:(text="${cfg.response_delete}:${toString cfg.response_delete_port}")' -> response_delete controller()
+    '${edges.prim_text}:(text="${cfg.response_patch}:${toString cfg.response_patch_port}")' -> response_patch controller()
     '';
   };
   fvm = import (<fractalide> + "/support/fvm/") {inherit pkgs support edges nodes;};
