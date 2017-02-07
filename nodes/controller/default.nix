@@ -2,7 +2,7 @@
 
 subgraph {
   src = ./.;
-  flowscript = with nodes; with edges; ''
+  flowscript = with nodes; ''
   listen => listen http(${net_http_nodes.http})
 
   request_get => connect request_get(${nanomsg_nodes.push})
