@@ -12,7 +12,7 @@ let
 in
 subgraph {
   src = ./.;
-  flowscript = with nodes; ''
+  flowscript = with nodes.rs; ''
   '${NetHttpAddress}' -> listen controller(${controller})
   '${PrimText1}' -> request_get controller()
   '${PrimText2}' -> request_post controller()
